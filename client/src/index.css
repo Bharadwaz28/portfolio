@@ -1,0 +1,168 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    background: #030606;
+    color-scheme: dark;
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-bg font-sans text-sub antialiased;
+    min-height: 100vh;
+    min-height: 100dvh;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: rgba(53, 220, 162, 0.28);
+    color: #e8f0ed;
+  }
+
+  :focus-visible {
+    outline: 2px solid #35dca2;
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* Thin, quiet scrollbars that match the panels */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #20312d transparent;
+  }
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #20312d;
+    border-radius: 8px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #2c4640;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  input,
+  textarea {
+    font: inherit;
+  }
+  input:-webkit-autofill,
+  textarea:-webkit-autofill {
+    -webkit-text-fill-color: #e8f0ed;
+    box-shadow: 0 0 0 100px #0a1113 inset;
+    caret-color: #35dca2;
+  }
+}
+
+@layer components {
+  /* Small terminal-style label, e.g. "// SELECTED PROJECTS" */
+  .label {
+    @apply font-mono text-[11px] uppercase leading-4 tracking-[0.12em] text-muted;
+  }
+
+  .card {
+    @apply relative rounded-md border border-line bg-card;
+  }
+
+  /* Soft green light that follows the pointer (set by Card.jsx) */
+  .card-spot::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    background: radial-gradient(
+      280px circle at var(--mx, 50%) var(--my, 50%),
+      rgba(53, 220, 162, 0.075),
+      transparent 70%
+    );
+  }
+  .card-spot:hover::before {
+    opacity: 1;
+  }
+
+  .chip {
+    @apply inline-flex items-center rounded border border-line bg-bg/60 px-2 py-[3px] font-mono text-[11px] leading-4 text-sub;
+  }
+
+  .btn {
+    @apply inline-flex min-h-[40px] items-center justify-center gap-2 rounded border px-4 py-2 font-mono text-xs font-medium uppercase tracking-[0.1em] transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-60;
+  }
+  .btn-primary {
+    @apply border-accent/70 text-accent hover:bg-accent/10 hover:shadow-glow;
+  }
+  .btn-ghost {
+    @apply border-line text-ink hover:border-accent/50 hover:text-accent;
+  }
+
+  .icon-btn {
+    @apply inline-flex h-9 w-9 shrink-0 items-center justify-center rounded border border-transparent text-sub transition-colors duration-200 hover:border-line hover:text-accent;
+  }
+
+  .field {
+    @apply w-full rounded border border-line bg-bg/70 px-3 py-2.5 text-sm text-ink placeholder:text-muted/80 transition-colors duration-200 focus:border-accent/70 focus:outline-none focus:ring-1 focus:ring-accent/40;
+  }
+  .field[aria-invalid='true'] {
+    @apply border-danger/70 focus:border-danger/70 focus:ring-danger/30;
+  }
+
+  /* Faint engineering grid used behind the monogram and illustrations */
+  .grid-texture {
+    background-image: linear-gradient(rgba(53, 220, 162, 0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(53, 220, 162, 0.07) 1px, transparent 1px);
+    background-size: 14px 14px;
+  }
+
+  .dot {
+    @apply inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-accent;
+  }
+}
+
+@layer utilities {
+  .text-glow {
+    text-shadow: 0 0 18px rgba(53, 220, 162, 0.55), 0 0 60px rgba(53, 220, 162, 0.25);
+  }
+  .mask-fade-x {
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+}
+
+/* Brief outline on the section a menu click jumped to */
+@keyframes sectionFlash {
+  0% { box-shadow: 0 0 0 1px rgba(53, 220, 162, 0.75), 0 0 28px -4px rgba(53, 220, 162, 0.45); }
+  100% { box-shadow: 0 0 0 1px rgba(53, 220, 162, 0), 0 0 28px -4px rgba(53, 220, 162, 0); }
+}
+.section-flash {
+  border-radius: 8px;
+  animation: sectionFlash 1.4s ease-out;
+}
+
+/* In the 2-column card layout, a lone last card takes the full row. */
+@container (min-width: 440px) and (max-width: 639.98px) {
+  .project-grid > li:last-child:nth-child(odd) {
+    grid-column: span 2;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

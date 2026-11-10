@@ -1,0 +1,7 @@
+Put your resume in this folder with the exact file name:
+
+  Bharadwaz_Resume.pdf
+
+The "Download CV" button finds it automatically. Until the file exists,
+the button shows a small notice instead of a broken download.
+You can delete this text file after adding the PDF.

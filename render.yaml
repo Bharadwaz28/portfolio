@@ -1,0 +1,25 @@
+# Render blueprint for the API (optional: you can also create the service by hand).
+services:
+  - type: web
+    name: bharadwaz-portfolio-api
+    runtime: node
+    plan: free
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        sync: false
+      - key: CLIENT_ORIGIN
+        sync: false
+      - key: WHATSAPP_PHONE
+        sync: false
+      - key: WHATSAPP_APIKEY
+        sync: false
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: TELEGRAM_CHAT_ID
+        sync: false
