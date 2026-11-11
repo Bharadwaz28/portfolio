@@ -211,7 +211,6 @@ export const experience = [
       'Developed responsive frontend components using React.js and Vite.',
       'Worked on backend integration using Node.js and Express.js.',
       'Integrated MongoDB Atlas for application data management.',
-      'Contributed to building and deploying a functional web application',
     ],
     tech: [],
   },
